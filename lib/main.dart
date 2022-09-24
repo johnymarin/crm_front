@@ -1,3 +1,4 @@
+import 'package:crm_front/views/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,6 +7,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  const MyApp ({Key? key}) : super(key:key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,13 +25,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
