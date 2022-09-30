@@ -44,7 +44,13 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cities'),
+        title: const Text(' List of Cities'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+
+        },
+        child: Icon(Icons.add),
       ),
       body: Visibility(
         visible: isLoaded,

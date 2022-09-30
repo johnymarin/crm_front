@@ -1,4 +1,4 @@
-import 'package:crm_front/views/home_page.dart';
+import 'package:crm_front/views/cites_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
