@@ -1,5 +1,6 @@
 import 'package:crm_front/models/cities.dart';
 import 'package:crm_front/services/remote_services.dart';
+import 'package:crm_front/views/city_modify.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,7 +49,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => CityModify()));
         },
         child: Icon(Icons.add),
       ),
@@ -57,56 +59,12 @@ class _HomePageState extends State<HomePage> {
         child: ListView.builder(
           itemCount: cities?.length,
           itemBuilder: (context, index) {
-            return Container(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.grey[300],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          cities![index].id.toString(),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          cities![index].name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          cities![index].timezone,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            return ListTile(
+              leading: Icon(Icons.location_city),
+              title: Text(cities![index].id.toString()),
+              subtitle: Text(cities![index].name),
+              isThreeLine: true,
+              trailing: Icon(Icons.more_vert),
             );
           },
         ),
