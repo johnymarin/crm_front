@@ -1,5 +1,5 @@
-import 'package:crm_front/models/cities.dart';
-import 'package:crm_front/services/remote_services.dart';
+import 'package:crm_front/models/city_factory.dart';
+import 'package:crm_front/services/note_services.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Cities>? cities;
+  List<CityForListing>? cities;
   var isLoaded = false;
 
   @override
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getData() async {
-    cities = await RemoteService().getCities();
+    cities = await FutureCityService().getFutureCitiesList();
     if(cities != null){
       setState(() {
         isLoaded = true;

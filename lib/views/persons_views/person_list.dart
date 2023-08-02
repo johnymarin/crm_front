@@ -1,21 +1,21 @@
-import 'package:crm_front/models/city_factory.dart';
-import 'package:crm_front/services/note_services.dart';
-import 'package:crm_front/views/city_modify.dart';
-import 'package:crm_front/views/note_delete.dart';
+import 'package:crm_front/models/person_factory.dart';
+import 'package:crm_front/services/person_services.dart';
+import 'package:crm_front/views/persons_views/person_modify.dart';
+import 'person_delete.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-class CityList extends StatefulWidget {
-  const CityList({ Key? key}) : super(key: key);
+class PersonListWidget extends StatefulWidget {
+  const PersonListWidget({ Key? key}) : super(key: key);
 
   @override
-  _CityListState createState() => _CityListState();
+  _PersonListWidgetState createState() => _PersonListWidgetState();
 }
 
-class _CityListState extends State<CityList> {
+class _PersonListWidgetState extends State<PersonListWidget> {
 
 
-  List<CityForListing>? cities = [];
+  List<PersonForList>? persons = [];
   var isLoaded = false;
 
   @override
@@ -26,8 +26,8 @@ class _CityListState extends State<CityList> {
   }
 
   getData() async {
-    cities = await FutureCityService().getFutureCitiesList();
-    if(cities != null){
+    persons = await PersonListService().getPersonList();
+    if(persons != null){
       setState(() {
         isLoaded = true;
       });
@@ -49,28 +49,28 @@ class _CityListState extends State<CityList> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(' List of Cities'),
+        title: const Text(' List of Persons'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => CityModify()));
+              .push(MaterialPageRoute(builder: (context) => PersonModifyWidget()));
         },
         child: Icon(Icons.add),
       ),
       body: Visibility(
         visible: isLoaded,
         child: ListView.builder(
-          itemCount: cities?.length,
+          itemCount: persons?.length,
           itemBuilder: (context, index) {
             return Dismissible(
-              key: ValueKey(cities?[index].id),
+              key: ValueKey(persons?[index].personId),
               direction: DismissDirection.startToEnd,
               onDismissed: (direction){},
               confirmDismiss: (direction) async{
                 final result = await showDialog(
                     context: context,
-                    builder: (context) => NoteDelete()
+                    builder: (context) => PersonDeleteWidget()
                 );
                 return result;
               },
@@ -86,16 +86,16 @@ class _CityListState extends State<CityList> {
                   )
               ),
               child: ListTile(
-                leading: Icon(Icons.location_city),
-                title: Text(cities![index].id.toString()),
-                subtitle: Text(cities![index].name),
+                leading: Icon(Icons.face),
+                title: Text(persons![index].personId.toString()),
+                subtitle: Text('${persons![index].nationalIdType } - ${persons![index].nationalId }'),
                 isThreeLine: true,
                 trailing: Icon(Icons.more_vert),
                 onTap: (){
                   Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => CityModify(
-                              cityID: cities?[index].id
+                          builder: (context) => PersonModifyWidget(
+                              personID: persons?[index].personId
                           )
                       )
                   );
